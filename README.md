@@ -2,13 +2,16 @@
 O projeto apresenta uma rede neural convolucional capaz de detectar indivíduos que possuam a enfermidade __Lúpus Eritematoso__.
 
 # <sub><img src="https://img.icons8.com/?size=100&id=bMncK0wGFANA&format=png&color=000000" alt="Ícone do Kaggle" width="42"></sub> Kaggle (database)
-[Click here](https://www.kaggle.com/datasets)
+[Clique aqui](https://www.kaggle.com/datasets)
 
 # <sub><img src="https://img.icons8.com/?size=100&id=9BozhiQDmlPL&format=png&color=000000" alt="Ícone de professor" width="42"></sub> Teachable Machine
-[Click here](https://teachablemachine.withgoogle.com/)
+[Clique aqui](https://teachablemachine.withgoogle.com/)
 
-# <sub><img src="https://img.icons8.com/?size=100&id=58715&format=png&color=000000" alt="Ícone de borboleta" width="42"></sub> Página
+# <sub><img src="https://img.icons8.com/?size=100&id=58715&format=png&color=000000" alt="Ícone de borboleta" width="40"></sub> Página
 ![image](https://github.com/user-attachments/assets/b20dc353-4a06-44e7-a73e-a4d0de9a71ae)
+
+# <sub><img src="https://github.com/user-attachments/assets/2f743dd0-bfdf-4520-866e-702a20ae0e03" alt="Ícone de professor" width="38"></sub> Hospedagem & Deploy
+[Clique aqui](https://detectles.onrender.com/)
 
 # <sub><img src="https://github.com/user-attachments/assets/d0d16049-1571-4980-833f-9876af07cd0b" alt="Ícone de terminal" width="34"></sub> Comandos
 ### Instalar Bibliotecas
