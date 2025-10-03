@@ -1,4 +1,4 @@
-const MODEL_PATH = "/model/";
+const MODEL_PATH = "/modelo-lupus2/";
 
 const imageUpload = document.getElementById('imageUpload');
 const uploadLabel = document.getElementById('upload-label');
@@ -14,9 +14,7 @@ let model, maxPredictions;
 
 const illnessCategories = {
     'lupus': { icon: '🧬', color: '#3498DB' },      
-    'vitiligo': { icon: '⚪', color: '#E67E22' },   
-    'acne': { icon: '🧴', color: '#9B59B6' },       
-    'normal': { icon: '✅', color: '#7F8C8D' },    
+    'saudavel': { icon: '✅', color: '#27AE60' },    
 };
 
 const defaultCategory = { icon: '❓', color: '#BDC3C7' };
@@ -275,7 +273,9 @@ function displayResults(predictions) {
     predictions.sort((a, b) => b.probability - a.probability);
 
     predictions.forEach((prediction, index) => {
-        const category = prediction.className.toLowerCase();
+        // Verificar se prediction.className existe, senão usar o índice
+        const className = prediction.className || `Class_${index}`;
+        const category = className.toLowerCase();
         const { icon, color } = illnessCategories[category] || defaultCategory;
         const probability = Math.round(prediction.probability * 100);
 
@@ -288,7 +288,7 @@ function displayResults(predictions) {
         ${icon}
       </div>
       <div class="result-details">
-        <div class="result-name">${prediction.className}</div>
+        <div class="result-name">${className}</div>
         <div class="result-probability">${probability}% confiança</div>
         <div class="progress-bar">
           <div class="progress-fill" style="width: ${probability}%; background-color: ${color}"></div>
