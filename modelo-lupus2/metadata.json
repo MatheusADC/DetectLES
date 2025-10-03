@@ -1,0 +1,24 @@
+{
+  "tfjsVersion": "4.17.0",
+  "tmVersion": "2.4.10",
+  "packageVersion": "0.8.4-alpha2",
+  "packageName": "@teachablemachine/image",
+  "timeStamp": "2025-10-02T23:35:51.289796",
+  "userMetadata": {},
+  "modelName": "lupus-detection-model-trained",
+  "labels": [
+    "lupus",
+    "saudavel"
+  ],
+  "imageSize": 224,
+  "trainingMetrics": {
+    "test_accuracy": 0.6875,
+    "test_loss": 0.6093261241912842,
+    "precision_lupus": 0.5454545454545454,
+    "recall_lupus": 1.0,
+    "f1_lupus": 0.7058823529411765,
+    "precision_saudavel": 1.0,
+    "recall_saudavel": 0.5,
+    "f1_saudavel": 0.6666666666666666
+  }
+}
