@@ -11,7 +11,7 @@ const port = 3000;
 
 app.use(express.json({ limit: "10mb" })); 
 
-const modelPath = path.join(__dirname, "model");
+const modelPath = path.join(__dirname, "modelo-lupus2");
 const uploadsDir = path.join(__dirname, "uploads"); 
 
 if (!fs.existsSync(uploadsDir)) {
@@ -45,19 +45,11 @@ function decodeImageToTensor(buffer) {
     return rgbTensor.expandDims(0); 
 }
 
-async function loadModel() {
-    try {
-        model = await tf.loadGraphModel(`file://${modelPath}/model.json`);
-        console.log("Model loaded!");
-    } catch (error) {
-        console.error("Error loading the model:", error);
-    }
-}
-
-loadModel();
+// Modelo será carregado no frontend, não no backend
+console.log("Modelo será carregado no frontend");
 
 app.use(express.static(path.join(__dirname, "public")));
-app.use("/model", express.static(modelPath));
+app.use("/modelo-lupus2", express.static(modelPath));
 
 app.use('/uploads', express.static(uploadsDir));
 
@@ -90,19 +82,13 @@ app.post("/classify", async (req, res) => {
             }
         );
 
-        const tensor = decodeImageToTensor(imageBuffer);
-
-        if (!model) {
-            return res.status(500).json({ error: "Model not loaded correctly" });
-        }
-
-        const predictions = await model.predict(tensor).data();
-
+        // Apenas salvar a imagem, a classificação será feita no frontend
         res.json({
-            predictions: Array.from(predictions),
+            success: true,
             id,
             dataHora,
-            imagePath: `/uploads/${id}.jpg` 
+            imagePath: `/uploads/${id}.jpg`,
+            message: "Imagem salva com sucesso"
         });
     } catch (error) {
         console.error("Error classifying image:", error);
