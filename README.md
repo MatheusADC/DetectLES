@@ -4,9 +4,6 @@ O projeto apresenta uma rede neural convolucional capaz de detectar indivíduos 
 # <sub><img src="https://img.icons8.com/?size=100&id=bMncK0wGFANA&format=png&color=000000" alt="Ícone do Kaggle" width="42"></sub> Kaggle (database)
 [Clique aqui](https://www.kaggle.com/datasets)
 
-# <sub><img src="https://img.icons8.com/?size=100&id=9BozhiQDmlPL&format=png&color=000000" alt="Ícone de professor" width="42"></sub> Teachable Machine
-[Clique aqui](https://teachablemachine.withgoogle.com/)
-
 # <sub><img src="https://img.icons8.com/?size=100&id=58715&format=png&color=000000" alt="Ícone de borboleta" width="40"></sub> Página
 ![image](https://github.com/user-attachments/assets/b20dc353-4a06-44e7-a73e-a4d0de9a71ae)
 
