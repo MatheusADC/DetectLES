@@ -304,7 +304,7 @@ function displayResults(predictions) {
         }
         const category = className.toLowerCase();
         const { icon, color } = illnessCategories[category] || defaultCategory;
-        // const probability = Math.round(prediction.probability * 100);
+        const probabilityBarra = prediction.probability * 100;
         const probability = (prediction.probability * 100).toFixed(2).replace(".", ",");;
 
         const resultItem = document.createElement('div');
@@ -319,7 +319,7 @@ function displayResults(predictions) {
         <div class="result-name">${className}</div>
         <div class="result-probability">${probability}% confiança</div>
         <div class="progress-bar">
-          <div class="progress-fill" style="width: ${probability}%; background-color: ${color}"></div>
+          <div class="progress-fill" style="width: ${probabilityBarra}%; background-color: ${color}"></div>
         </div>
       </div>
     `;
