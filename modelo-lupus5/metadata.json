@@ -1,0 +1,10 @@
+{
+  "labels": [
+    "lupus",
+    "saudavel"
+  ],
+  "imageSize": 224,
+  "timestamp": "2025-11-24T04:54:48.049234",
+  "validation_accuracy": 0.804347813129425,
+  "validation_loss": 0.7298474444089353
+}
