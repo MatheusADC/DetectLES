@@ -1,4 +1,6 @@
-const MODEL_PATH = "/modelo-lupus2/";
+// const MODEL_PATH = "/modelo-lupus2/";
+// const MODEL_PATH = "/model-teach/";
+const MODEL_PATH = "/modelo-lupus4/";
 
 const imageUpload = document.getElementById('imageUpload');
 const uploadLabel = document.getElementById('upload-label');
@@ -12,10 +14,18 @@ const noResults = document.getElementById('no-results');
 
 let model, maxPredictions;
 
+// const illnessCategories = {
+//     'lupus' : { icon: '🧬', color: '#3498DB' },      
+//     'saudavel': { icon: '✅', color: '#27AE60' },    
+// };
+
 const illnessCategories = {
-    'lupus': { icon: '🧬', color: '#3498DB' },      
-    'saudavel': { icon: '✅', color: '#27AE60' },    
+    'lupus':    { icon: '🧬', color: '#3498DB' },
+    'lúpus':    { icon: '🧬', color: '#3498DB' }, // se quiser suportar acento também
+    'saudavel': { icon: '✅', color: '#27AE60' },
+    'saudável': { icon: '✅', color: '#27AE60' }  // idem
 };
+
 
 const defaultCategory = { icon: '❓', color: '#BDC3C7' };
 
@@ -231,8 +241,20 @@ classifyButton.addEventListener('click', async function () {
     try {
         const img = document.getElementById('image-preview');
         const predictions = await model.predict(img);
-        const imgBase64 = img.src;
-        await postImageToBackend(imgBase64);
+        // const imgBase64 = img.src;
+        // await postImageToBackend(imgBase64);
+
+
+        
+        // Achar a classe com maior probabilidade
+        const bestPrediction = predictions.sort((a, b) => b.probability - a.probability)[0];
+
+        const resultado = bestPrediction.className;       // "lupus" ou "saudavel"
+        const probabilidade = bestPrediction.probability; // ex: 0.9823
+
+        // Enviar tudo para o backend
+        await postImageToBackend(img.src, resultado, probabilidade);
+
         displayResults(predictions);
     } catch (error) {
         console.error("Error during classification:", error);
@@ -243,7 +265,7 @@ classifyButton.addEventListener('click', async function () {
     }
 });
 
-async function postImageToBackend(imgBase64) {
+async function postImageToBackend(imgBase64, resultado, probabilidade) {
     try {
         const response = await fetch('/classify', {
             method: 'POST',
@@ -251,7 +273,7 @@ async function postImageToBackend(imgBase64) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                image: imgBase64,
+                image: imgBase64, resultado, probabilidade,
                 timestamp: new Date().toISOString()
             })
         });
@@ -274,10 +296,16 @@ function displayResults(predictions) {
 
     predictions.forEach((prediction, index) => {
         // Verificar se prediction.className existe, senão usar o índice
-        const className = prediction.className || `Class_${index}`;
+        let className = prediction.className || `Class_${index}`;
+        if (className == 'saudavel') {
+            className = 'Saudável';
+        } else {
+            className = 'Lúpus';
+        }
         const category = className.toLowerCase();
         const { icon, color } = illnessCategories[category] || defaultCategory;
-        const probability = Math.round(prediction.probability * 100);
+        // const probability = Math.round(prediction.probability * 100);
+        const probability = (prediction.probability * 100).toFixed(2).replace(".", ",");;
 
         const resultItem = document.createElement('div');
         resultItem.className = 'result-item';
