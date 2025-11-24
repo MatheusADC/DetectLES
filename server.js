@@ -11,7 +11,9 @@ const port = 3000;
 
 app.use(express.json({ limit: "10mb" })); 
 
-const modelPath = path.join(__dirname, "modelo-lupus2");
+// const modelPath = path.join(__dirname, "modelo-lupus2");
+// const modelPath = path.join(__dirname, "model-teach");
+const modelPath = path.join(__dirname, "modelo-lupus4");
 const uploadsDir = path.join(__dirname, "uploads"); 
 
 if (!fs.existsSync(uploadsDir)) {
@@ -30,7 +32,9 @@ const db = new sqlite3.Database("imagens.db", (err) => {
                 id TEXT PRIMARY KEY,
                 base64 TEXT NOT NULL,
                 data_hora TEXT NOT NULL,
-                file_path TEXT NOT NULL
+                file_path TEXT NOT NULL,
+                resultado TEXT,
+                probabilidade REAL
             )
         `);
     }
@@ -49,12 +53,14 @@ function decodeImageToTensor(buffer) {
 console.log("Modelo será carregado no frontend");
 
 app.use(express.static(path.join(__dirname, "public")));
-app.use("/modelo-lupus2", express.static(modelPath));
+// app.use("/modelo-lupus2", express.static(modelPath));
+// app.use("/model-teach", express.static(modelPath));
+app.use("/modelo-lupus4", express.static(modelPath));
 
 app.use('/uploads', express.static(uploadsDir));
 
 app.post("/classify", async (req, res) => {
-    const { image } = req.body;
+    const { image, resultado, probabilidade } = req.body;
 
     if (!image) {
         return res.status(400).json({ error: "No image provided" });
@@ -71,8 +77,8 @@ app.post("/classify", async (req, res) => {
         fs.writeFileSync(imagePath, imageBuffer);
 
         db.run(
-            "INSERT INTO imagens (id, base64, data_hora, file_path) VALUES (?, ?, ?, ?)",
-            [id, base64Data, dataHora, imagePath],
+            "INSERT INTO imagens (id, base64, data_hora, file_path, resultado, probabilidade) VALUES (?, ?, ?, ?, ?, ?)",
+            [id, base64Data, dataHora, imagePath, resultado, probabilidade],
             (err) => {
                 if (err) {
                     console.error("Erro ao inserir no banco de dados:", err.message);
